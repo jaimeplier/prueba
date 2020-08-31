@@ -1,0 +1,60 @@
+
+<div class="table-container">
+    <div class="input-field col s6">
+        <label for="search">Filtrar:</label>
+        <input [(ngModel)]="userenter" id="search" type="text" class="input-field"> {{ userenter}}
+    </div>
+
+    <table>
+        <thead>
+          <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Fecha de nacimiento</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let empleado of empleados | filterlist:userenter">
+            <td>{{ empleado.id }}</td>
+            <td>{{ empleado.last_name }}</td>
+            <td>{{ empleado.name }}</td>
+            <td>{{ empleado.birthday | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="pagination">
+        <li class="disabled"><i class="material-icons">chevron_left</i></li>
+        <!-- <li class="active">1</li> -->
+        <li *ngFor="let pag of paginas;" 
+        class="paginas pointer" (click)="getPage(pag)">{{pag}}</li>
+        <li class="waves-effect" ><i class="material-icons">chevron_right</i></li>
+      </ul>
+</div>
+
+<div class="container">
+    <div class="row">
+        <form class="col s12" [formGroup]="nuevoUsuario" (ngSubmit)="postUser()">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="name" type="text" formControlName="name" class="validate">
+                        <label for="name">Nombre</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" formControlName="last_name" type="text" class="validate">
+                        <label for="last_name">Apellido</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="birthday" type="text" formControlName="birthday" class="datepicker">
+                        <label for="birthday">Fecha de nacimiento</label>
+                    </div>
+                    <div class="col s6">
+                        <button type="submit" class="waves-effect waves-light btn">Agregar</button>
+                    </div>
+                </div>
+            </form>
+    </div>
+</div>
